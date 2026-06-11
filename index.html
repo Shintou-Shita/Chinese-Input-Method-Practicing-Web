@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文输入法练习</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>中文输入法练习</h1>
+            <nav>
+                <button class="nav-btn active" data-section="intro">引入</button>
+                <button class="nav-btn" data-section="basic">基本功能</button>
+                <button class="nav-btn" data-section="leaderboard">排行榜</button>
+                <button class="nav-btn" data-section="theme">主题设置</button>
+            </nav>
+        </header>
+
+        <main>
+            <section id="intro" class="content-section active">
+                <h2>引入</h2>
+                <div class="intro-content">
+                    受开源的 Rime 输入法自定义方案启发，支持导入 .dict.yaml 文件练习中文打字。
+                </div>
+            </section>
+
+            <section id="basic" class="content-section">
+                <h2>基本功能</h2>
+                <div class="practice-area">
+                    <div class="mode-selector">
+                        <button class="mode-btn active" data-mode="single">单字练习</button>
+                        <button class="mode-btn" data-mode="article">文章练习</button>
+                        <button class="mode-btn" data-mode="custom">自定义文章</button>
+                    </div>
+
+                    <div class="input-method-selector">
+                        <div class="selector-row">
+                            <div class="selector-item">
+                                <h4>选择输入方案</h4>
+                                <input type="file" id="yamlFile" accept=".yaml,.dict.yaml" style="display:none;">
+                                <button id="loadYamlBtn" class="btn">加载 Rime 词典</button>
+                                <span id="yamlFileName" class="file-name"></span>
+                            </div>
+                            <div class="selector-item" id="articleSelector" style="display:none">
+                                <h4>选择输入文章</h4>
+                                <input type="file" id="articleFile" accept=".txt,.text" style="display:none;">
+                                <button id="loadArticleBtn" class="btn">加载文本文章</button>
+                                <span id="articleFileName" class="file-name"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="display-area">
+                        <div id="targetText" class="target-text"></div>
+                        <div id="inputArea" class="input-area">
+                            <input type="text" id="userInput" placeholder="在此输入..." autocomplete="off">
+                        </div>
+                        <div id="feedback" class="feedback"></div>
+                    </div>
+
+                    <div class="timer-bar">
+                        <label>限时（秒）:</label>
+                        <input type="number" id="timerDuration" value="60" min="10" max="600">
+                        <button id="timedModeBtn" class="btn btn-small">开启限时</button>
+                        <span id="timerDisplay" class="timer-inline">00:00</span>
+                    </div>
+
+                    <div class="controls">
+                        <button id="startBtn" class="btn btn-primary">开始练习</button>
+                        <button id="pauseBtn" class="btn" disabled>暂停</button>
+                        <button id="resetBtn" class="btn">重置</button>
+                    </div>
+
+                    <div class="statistics">
+                        <div class="stat-item">
+                            <span class="stat-label">正确率</span>
+                            <span id="accuracy" class="stat-value">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">速度</span>
+                            <span id="speed" class="stat-value">0 字/分</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">击键</span>
+                            <span id="keystrokes" class="stat-value">0 次/分</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="leaderboard" class="content-section">
+                <h2>排行榜</h2>
+                <div id="leaderboard-list" class="leaderboard"></div>
+            </section>
+
+            <section id="theme" class="content-section">
+                <h2>主题设置</h2>
+                <div class="theme-selector">
+                    <label>选择主题:</label>
+                    <select id="themeSelect">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="navy">深蓝</option>
+                        <option value="forest">墨绿</option>
+                        <option value="warm">暖橙</option>
+                        <option value="violet">紫罗兰</option>
+                    </select>
+                </div>
+            </section>
+        </main>
+
+        <div class="user-panel">
+            <div id="userInfo" class="user-info">
+                <span id="userDisplay">未登录</span>
+                <button id="loginBtn" class="btn btn-small">登录</button>
+            </div>
+        </div>
+
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <h3>用户登录</h3>
+                <input type="text" id="usernameInput" placeholder="用户名">
+                <input type="password" id="passwordInput" placeholder="密码">
+                <p id="modalFeedback" class="modal-feedback"></p>
+                <div class="modal-buttons">
+                    <button id="confirmLoginBtn" class="btn btn-primary">登录</button>
+                    <button id="registerBtn" class="btn">注册</button>
+                    <button id="closeModalBtn" class="btn">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
